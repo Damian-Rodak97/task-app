@@ -28,8 +28,7 @@ namespace ApiTODO.Controllers
 
         [HttpPost]
         [Route("Register")]
-        //POST : /api/User/Register
-        public async Task<Object> PostUser(UserModel model)
+        public async Task<Object> Register(UserModel model)
         {
             var user = new User()
             {

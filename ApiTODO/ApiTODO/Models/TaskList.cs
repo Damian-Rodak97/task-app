@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ApiTODO.Models
 {
-    public class Task
+    public class TaskList
     {
-        public TaskList TaskList { get; set; }
-        public int TaskListId { get; set; }
         public int Id { get; set; }
-        public string Message { get; set; }
+        public string Name { get; set; }
+        public User User { get; set; }
+        public string UserId { get; set; }
     }
 }

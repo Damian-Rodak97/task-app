@@ -15,7 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddTaskComponent } from './home/add-task/add-task.component';
-import { DeleteTaskComponent } from './home/delete-task/delete-task.component';
+import { AddListComponent } from './home/add-list/add-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { DeleteTaskComponent } from './home/delete-task/delete-task.component';
     LoginComponent,
     HomeComponent,
     AddTaskComponent,
-    DeleteTaskComponent
+    AddListComponent
   ],
   imports: [
     BrowserModule,

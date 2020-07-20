@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiTODO.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    [Migration("20200705201243_Add_Foreign_Key_To_Task")]
-    partial class Add_Foreign_Key_To_Task
+    [Migration("20200719175946_CreateTaskDB")]
+    partial class CreateTaskDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,26 @@ namespace ApiTODO.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaskListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskListId");
+
+                    b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("ApiTODO.Models.TaskList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -38,7 +58,7 @@ namespace ApiTODO.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("TaskLists");
                 });
 
             modelBuilder.Entity("ApiTODO.Models.User", b =>
@@ -57,6 +77,9 @@ namespace ApiTODO.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -94,6 +117,15 @@ namespace ApiTODO.Migrations
                 });
 
             modelBuilder.Entity("ApiTODO.Models.Task", b =>
+                {
+                    b.HasOne("ApiTODO.Models.TaskList", "TaskList")
+                        .WithMany()
+                        .HasForeignKey("TaskListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApiTODO.Models.TaskList", b =>
                 {
                     b.HasOne("ApiTODO.Models.User", "User")
                         .WithMany()

@@ -37,6 +37,7 @@ namespace ApiTODO
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TaskContext>();
             services.AddTransient<ITaskRepository, EFTaskRepository>();
+            services.AddTransient<ITaskListRepository, EFTaskListRepository>();
             services.AddControllers();
             services.Configure<IdentityOptions>(options =>
                 {

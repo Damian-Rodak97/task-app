@@ -16,7 +16,7 @@ namespace ApiTODO.Models
 
         public IQueryable<Task> Tasks => Context.Tasks;
 
-        public Task DelateTask(Task task)
+        public Task DeleteTask(Task task)
         {
             Task dbEntryTask = Context.Tasks
                 .FirstOrDefault(t => t.Id == task.Id);

@@ -29,6 +29,26 @@ namespace ApiTODO.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaskListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskListId");
+
+                    b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("ApiTODO.Models.TaskList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -36,7 +56,7 @@ namespace ApiTODO.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("TaskLists");
                 });
 
             modelBuilder.Entity("ApiTODO.Models.User", b =>
@@ -95,6 +115,15 @@ namespace ApiTODO.Migrations
                 });
 
             modelBuilder.Entity("ApiTODO.Models.Task", b =>
+                {
+                    b.HasOne("ApiTODO.Models.TaskList", "TaskList")
+                        .WithMany()
+                        .HasForeignKey("TaskListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApiTODO.Models.TaskList", b =>
                 {
                     b.HasOne("ApiTODO.Models.User", "User")
                         .WithMany()

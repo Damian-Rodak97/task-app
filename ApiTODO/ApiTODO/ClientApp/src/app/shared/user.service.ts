@@ -47,10 +47,4 @@ export class UserService {
   login(formData) {
     return this.http.post(this.BaseURI + '/User/Login', formData);
   }
-  // tslint:disable-next-line:typedef
-  getTasks()
-  {
-    return this.http.get(this.BaseURI + '/Task/Index');
-
-  }
 }

@@ -1,3 +1,4 @@
+import { TaskService } from './../../shared/task.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddTaskComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: TaskService) { }
 
   ngOnInit(): void {
   }
-
+// tslint:disable-next-line:typedef
+onSubmit() {
+  this.service.AddTasks().subscribe((res: any) => {
+      this.service.formModel.reset();
+  },
+    err => {
+      console.log(err);
+    }
+  );
+}
 }

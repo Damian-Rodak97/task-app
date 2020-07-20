@@ -1,11 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ApiTODO.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Task = ApiTODO.Models.Task;
 
 
@@ -13,6 +13,7 @@ namespace ApiTODO.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TaskController : ControllerBase
     {
         private readonly ITaskRepository repository;
@@ -22,32 +23,21 @@ namespace ApiTODO.Controllers
             this.repository = repository;
             this.userManager = userManager;
         }
-        [HttpGet]
-        [Authorize]
-        public async Task<Object> GetTask()
-        {
-            string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await userManager.FindByIdAsync(userId);
-            return new
-            {
-                user.FullName,
-                user.Email,
-                user.UserName
-            };
-        }
-
 
         [HttpPost]
         [Route("AddTask")]
-        public IActionResult AddTask(TaskViewModel taskViewModel)
+        public IActionResult AddTask(TaskViewModel taskViewModel, int taskListId)
         {
-            var userId = userManager.GetUserId(HttpContext.User);
-            Task task = new Models.Task
+            
+            foreach (var taskView in taskViewModel.Tasks)
+            {
+                Task task = new Task
                 {
-                    Message = taskViewModel.Message,
-                    UserId = userId
+                    Message = taskView.Message,
+                    TaskListId = taskListId
                 };
-            repository.SaveTask(task);
+                repository.SaveTask(task);
+            }
             return Ok();
         }
 
@@ -56,7 +46,7 @@ namespace ApiTODO.Controllers
         public IActionResult DeleteTask(int id)
         {
             var task = repository.Tasks.FirstOrDefault(x => x.Id == id);
-            repository.DelateTask(task);
+            repository.DeleteTask(task);
             return Ok();
         }
     }

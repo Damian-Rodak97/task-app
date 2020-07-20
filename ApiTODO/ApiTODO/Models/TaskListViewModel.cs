@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ApiTODO.Models
 {
-    public class TaskViewModel
+    public class TaskListViewModel
     {
-        public IEnumerable<Task> Tasks { get; set; }
+        public string Name { get; set; }
     }
 }

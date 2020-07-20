@@ -9,6 +9,6 @@ namespace ApiTODO.Models
     {
         IQueryable<Task> Tasks { get; }
         void SaveTask(Task task);
-        Task DelateTask(Task task);
+        Task DeleteTask(Task task);
     }
 }
