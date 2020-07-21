@@ -1,7 +1,7 @@
 import { TaskService } from './../shared/task.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Task } from './task.class';
+import { TaskList } from './tasklist.class';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +11,14 @@ import { Task } from './task.class';
 export class HomeComponent implements OnInit {
 
   constructor(private router: Router, public service: TaskService) { }
-  public tasks: Array<Task> = [];
+  public taskList: Array<TaskList> = [];
   ngOnInit(): void {
-   // this.service.getTasks().subscribe((res: any) => {
-    //  this.tasks = res;
-   // },
-    //  err => {
-   //     console.log(err);
-    //  });
+    this.service.getTaskList().subscribe((res: any) => {
+    this.taskList = res;
+    },
+   err => {
+       console.log(err);
+     });
   }
 
 
