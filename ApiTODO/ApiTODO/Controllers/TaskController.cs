@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using ApiTODO.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,31 +24,39 @@ namespace ApiTODO.Controllers
             this.repository = repository;
             this.userManager = userManager;
         }
+   
 
         [HttpPost]
         [Route("AddTask")]
-        public IActionResult AddTask(TaskViewModel taskViewModel, int taskListId)
+        public IActionResult AddTask(Task taskView)
         {
-            
-            foreach (var taskView in taskViewModel.Tasks)
-            {
-                Task task = new Task
+            Task task = new Task
                 {
                     Message = taskView.Message,
-                    TaskListId = taskListId
+                    TaskListId = taskView.TaskListId
                 };
                 repository.SaveTask(task);
-            }
-            return Ok();
+                return Ok();
         }
 
         [HttpPost]
         [Route("DeleteTask")]
-        public IActionResult DeleteTask(int id)
+        public IActionResult DeleteTask(Task taskViewModel)
         {
-            var task = repository.Tasks.FirstOrDefault(x => x.Id == id);
+            var task = repository.Tasks.FirstOrDefault(x => x.Id == taskViewModel.Id);
             repository.DeleteTask(task);
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("TasksForList/{listId}")]
+        public IActionResult GetTasksForList([FromRoute]int listId)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var tasks = repository.Tasks
+                .Where(t => t.TaskList.UserId == userId)
+                .Where(x=>x.TaskListId == listId).ToList();
+            return Ok(tasks);
         }
     }
 }

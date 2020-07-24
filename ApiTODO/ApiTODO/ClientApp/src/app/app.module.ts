@@ -16,6 +16,11 @@ import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddTaskComponent } from './home/add-task/add-task.component';
 import { AddListComponent } from './home/add-list/add-list.component';
+import { TaskListComponent } from './home/task-list/task-list.component';
+import { TaskComponent } from './home/task/task.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -25,10 +30,15 @@ import { AddListComponent } from './home/add-list/add-list.component';
     LoginComponent,
     HomeComponent,
     AddTaskComponent,
-    AddListComponent
+    AddListComponent,
+    TaskListComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
+    MatButtonModule,
+    MatInputModule,
+    MatIconModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

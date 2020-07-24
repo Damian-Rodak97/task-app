@@ -1,7 +1,5 @@
 export class Task {
-  taskList: [
-    {id: string},
-    {message: string},
-    {userId: string}
-  ];
+  id: number;
+  message: string;
+  taskListId: number;
 }

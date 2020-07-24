@@ -19,6 +19,7 @@ namespace ApiTODO.Controllers
             this.repository = repository;
             this.userManager = userManager;
         }
+
         [HttpPost]
         [Route("AddTaskList")]
         public IActionResult AddTaskList(TaskListViewModel taskViewModel)
@@ -32,20 +33,22 @@ namespace ApiTODO.Controllers
             repository.SaveTaskList(taskList);
             return Ok();
         }
+
         [HttpGet]
         [Route("TaskList")]
-        public IActionResult GetTask()
+        public IActionResult GetTaskList()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
             var listTask = repository.TaskLists
                 .Where(t => t.User.Id == userId);
             return Ok(listTask);
         }
+
         [HttpPost]
         [Route("DeleteTaskList")]
-        public IActionResult DeleteTask(int id)
+        public IActionResult DeleteTaskList(TaskList taskListViewModel)
         {
-            var taskList = repository.TaskLists.FirstOrDefault(x => x.Id == id);
+            var taskList = repository.TaskLists.FirstOrDefault(x => x.Id == taskListViewModel.Id);
             repository.DeleteTaskList(taskList);
             return Ok();
         }

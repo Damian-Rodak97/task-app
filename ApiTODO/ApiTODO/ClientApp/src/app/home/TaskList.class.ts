@@ -1,5 +1,5 @@
 export class TaskList {
-    id: string;
+    id: number;
     name: string;
     userId: string;
 }

@@ -1,5 +1,7 @@
+import { TaskList } from './../TaskList.class';
 import { TaskService } from './../../shared/task.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Task } from '../Task.class';
 
 @Component({
   selector: 'app-add-task',
@@ -7,19 +9,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-
+@Input()
+isHidden;
+@Output()
+isHiddenChange = new EventEmitter<boolean>();
+@Input()
+listId;
+newTask: Task;
+message: string;
   constructor(public service: TaskService) { }
 
   ngOnInit(): void {
+    this.newTask = new Task();
   }
-// tslint:disable-next-line:typedef
-onSubmit() {
-  this.service.AddTasks().subscribe((res: any) => {
-      this.service.formModel.reset();
-  },
-    err => {
-      console.log(err);
-    }
-  );
-}
+
+  addTask(): void
+  {
+    this.newTask.message = this.message;
+    this.newTask.taskListId = this.listId;
+    this.service.addTask(this.newTask).subscribe((res: any) => {
+
+    });
+    this.isHiddenChange.emit(false);
+  }
 }

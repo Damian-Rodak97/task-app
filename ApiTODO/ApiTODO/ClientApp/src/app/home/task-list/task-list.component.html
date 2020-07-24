@@ -1,0 +1,19 @@
+<div class="p-2">
+  <div class="card text-white bg-dark" style="max-width: 25rem;min-width: 19rem;">
+    <div class="card-header d-flex justify-content-between"> {{list.name}}
+      <button mat-icon-button color="warn" (click)="deleteList(list)"><mat-icon>delete</mat-icon></button>
+    </div>
+    <div *ngFor="let task of tasks">
+      <app-task [task]="task"></app-task>
+    </div>
+    <div class="card-body" *ngIf="tasks.length === 0 && !isHidden">List is empty</div>
+    <form class="d-flex justify-content-center"  *ngIf="isHidden">
+      <mat-form-field  class="example-full-width">
+      <input matInput type="text" placeholder="Name task">
+    </mat-form-field>
+    <button mat-icon-button color="primary"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button color="warn" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+    </form>
+    <button mat-raised-button color="primary" *ngIf="!isHidden" (click)="onTask()">Add Task</button>
+  </div>
+</div>

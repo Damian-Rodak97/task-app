@@ -12,19 +12,31 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, public service: TaskService) { }
   public taskList: Array<TaskList> = [];
+  isHidden;
   ngOnInit(): void {
     this.service.getTaskList().subscribe((res: any) => {
-    this.taskList = res;
+      this.taskList = res;
     },
-   err => {
-       console.log(err);
-     });
+      err => {
+        console.log(err);
+      });
   }
 
-
-  // tslint:disable-next-line:typedef
-  onLogout() {
+  onLogout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['user/login']);
+  }
+
+  onTaskList(): void
+  {
+      this.isHidden = true;
+    //this.service.addTaskList().subscribe((res: any) => {
+   // },
+     // err => {
+     //   console.log(err);
+    //  });
+  }
+  back(): void{
+    this.isHidden = false;
   }
 }
