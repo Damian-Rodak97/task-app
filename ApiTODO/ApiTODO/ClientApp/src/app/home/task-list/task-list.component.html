@@ -7,11 +7,12 @@
       <app-task [task]="task"></app-task>
     </div>
     <div class="card-body" *ngIf="tasks.length === 0 && !isHidden">List is empty</div>
-    <form class="d-flex justify-content-center"  *ngIf="isHidden">
+    <form class="d-flex justify-content-center"  *ngIf="isHidden" >
       <mat-form-field  class="example-full-width">
-      <input matInput type="text" placeholder="Name task">
+        <mat-label class="text-white">Name Task</mat-label>
+      <input matInput type="text" #message>
     </mat-form-field>
-    <button mat-icon-button color="primary"><mat-icon>add</mat-icon></button>
+    <button mat-icon-button color="primary" (click)="addTask(list.id, message.value)"><mat-icon>add</mat-icon></button>
     <button mat-icon-button color="warn" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
     </form>
     <button mat-raised-button color="primary" *ngIf="!isHidden" (click)="onTask()">Add Task</button>

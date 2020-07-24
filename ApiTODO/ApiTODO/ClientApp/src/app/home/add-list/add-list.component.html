@@ -1,7 +1,0 @@
-<form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()">
-  <div class="form-group">
-    <label>Task:</label>
-    <input class="form-control" formControlName="Message">
-    </div>
-        <button type="submit" class="btn btn-lg btn-block" [disabled]="!service.formModel.valid">Add Task</button>
-</form>

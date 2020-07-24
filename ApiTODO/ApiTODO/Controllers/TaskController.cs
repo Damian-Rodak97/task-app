@@ -24,7 +24,6 @@ namespace ApiTODO.Controllers
             this.repository = repository;
             this.userManager = userManager;
         }
-   
 
         [HttpPost]
         [Route("AddTask")]
@@ -47,7 +46,6 @@ namespace ApiTODO.Controllers
             repository.DeleteTask(task);
             return Ok();
         }
-
         [HttpGet]
         [Route("TasksForList/{listId}")]
         public IActionResult GetTasksForList([FromRoute]int listId)

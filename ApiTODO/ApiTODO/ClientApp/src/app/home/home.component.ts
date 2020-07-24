@@ -1,3 +1,4 @@
+import { TaskListService } from './../shared/task-list.service';
 import { TaskService } from './../shared/task.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -10,11 +11,15 @@ import { TaskList } from './tasklist.class';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router, public service: TaskService) { }
+  constructor(private router: Router, public listService: TaskListService) { }
+
   public taskList: Array<TaskList> = [];
+  list: TaskList;
   isHidden;
+
   ngOnInit(): void {
-    this.service.getTaskList().subscribe((res: any) => {
+    this.list = new TaskList();
+    this.listService.getTaskList().subscribe((res: any) => {
       this.taskList = res;
     },
       err => {
@@ -30,13 +35,19 @@ export class HomeComponent implements OnInit {
   onTaskList(): void
   {
       this.isHidden = true;
-    //this.service.addTaskList().subscribe((res: any) => {
-   // },
-     // err => {
-     //   console.log(err);
-    //  });
   }
+
   back(): void{
     this.isHidden = false;
+  }
+
+  addTaskList(name): void
+  {
+    this.list.name = name;
+    this.listService.addTaskList(this.list).subscribe(
+      (res: any) => {
+        window.location.reload();
+      }
+    );
   }
 }

@@ -1,3 +1,4 @@
+import { TaskListService } from './shared/task-list.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TaskService } from './shared/task.service';
 import { UserService } from './shared/user.service';
@@ -14,8 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AddTaskComponent } from './home/add-task/add-task.component';
-import { AddListComponent } from './home/add-list/add-list.component';
 import { TaskListComponent } from './home/task-list/task-list.component';
 import { TaskComponent } from './home/task/task.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,8 +28,6 @@ import {MatInputModule} from '@angular/material/input';
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    AddTaskComponent,
-    AddListComponent,
     TaskListComponent,
     TaskComponent
   ],
@@ -48,7 +45,7 @@ import {MatInputModule} from '@angular/material/input';
     }),
     FormsModule
   ],
-  providers: [UserService, TaskService, {
+  providers: [UserService, TaskService, TaskListService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

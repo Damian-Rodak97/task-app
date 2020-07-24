@@ -18,6 +18,4 @@ export class TaskComponent implements OnInit {
       window.location.reload();
     });
   }
-
-
 }
