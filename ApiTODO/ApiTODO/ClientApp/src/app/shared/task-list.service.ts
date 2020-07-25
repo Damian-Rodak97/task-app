@@ -23,4 +23,8 @@ export class TaskListService {
   deleteTaskList(taskList: TaskList) {
     return this.http.post(this.BaseURI + '/TaskList/DeleteTaskList', taskList);
   }
+   // tslint:disable-next-line:typedef
+  editTaskList(taskList: TaskList) {
+    return this.http.post(this.BaseURI + '/TaskList/EditTaskList', taskList);
+  }
 }

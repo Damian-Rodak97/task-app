@@ -1,5 +1,4 @@
 import { TaskListService } from './../shared/task-list.service';
-import { TaskService } from './../shared/task.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { TaskList } from './tasklist.class';

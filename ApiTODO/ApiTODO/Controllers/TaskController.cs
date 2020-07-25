@@ -46,6 +46,7 @@ namespace ApiTODO.Controllers
             repository.DeleteTask(task);
             return Ok();
         }
+
         [HttpGet]
         [Route("TasksForList/{listId}")]
         public IActionResult GetTasksForList([FromRoute]int listId)
@@ -55,6 +56,20 @@ namespace ApiTODO.Controllers
                 .Where(t => t.TaskList.UserId == userId)
                 .Where(x=>x.TaskListId == listId).ToList();
             return Ok(tasks);
+        }
+
+        [HttpPost]
+        [Route("EditTask")]
+        public IActionResult EditTask(Task taskView)
+        {
+            Task task = new Task
+            {
+                Id = taskView.Id,
+                Message = taskView.Message,
+                TaskListId = taskView.TaskListId
+            };
+            repository.SaveTask(task);
+            return Ok();
         }
     }
 }

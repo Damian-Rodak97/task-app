@@ -1,19 +1,44 @@
 <div class="p-2">
   <div class="card text-white bg-dark" style="max-width: 25rem;min-width: 19rem;">
-    <div class="card-header d-flex justify-content-between"> {{list.name}}
-      <button mat-icon-button color="warn" (click)="deleteList(list)"><mat-icon>delete</mat-icon></button>
+    <div class="card-header text-primary">
+    <form class="d-flex justify-content-center" *ngIf="isListHidden">
+      <mat-form-field class="example-full-width">
+        <mat-label class="text-primary">List name</mat-label>
+        <input matInput type="text" #listName>
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="editTaskList(list.id, listName.value)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </form>
+    <div class="d-flex justify-content-between" *ngIf="!isListHidden"><h2>{{list.name}}</h2>
+      <div>
+      <button mat-icon-button color="basic" (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteList(list)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    </div>
     </div>
     <div *ngFor="let task of tasks">
-      <app-task [task]="task"></app-task>
+      <app-task [task]="task" [listId]="list.id"></app-task>
     </div>
     <div class="card-body" *ngIf="tasks.length === 0 && !isHidden">List is empty</div>
-    <form class="d-flex justify-content-center"  *ngIf="isHidden" >
-      <mat-form-field  class="example-full-width">
+    <form class="d-flex justify-content-center" *ngIf="isHidden">
+      <mat-form-field class="example-full-width">
         <mat-label class="text-white">Name Task</mat-label>
-      <input matInput type="text" #message>
-    </mat-form-field>
-    <button mat-icon-button color="primary" (click)="addTask(list.id, message.value)"><mat-icon>add</mat-icon></button>
-    <button mat-icon-button color="warn" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+        <input matInput type="text" #message>
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="addTask(list.id, message.value)">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
     </form>
     <button mat-raised-button color="primary" *ngIf="!isHidden" (click)="onTask()">Add Task</button>
   </div>

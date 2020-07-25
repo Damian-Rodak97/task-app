@@ -31,4 +31,8 @@ export class TaskService {
   deleteTask(task: Task) {
     return this.http.post(this.BaseURI + '/Task/DeleteTask', task);
   }
+  // tslint:disable-next-line:typedef
+  editTask(task: Task){
+    return this.http.post(this.BaseURI + '/Task/EditTask', task);
+  }
 }

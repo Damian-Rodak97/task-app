@@ -52,5 +52,20 @@ namespace ApiTODO.Controllers
             repository.DeleteTaskList(taskList);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("EditTaskList")]
+        public IActionResult EditTaskList(TaskList taskView)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            TaskList taskList = new TaskList
+            {
+                Id = taskView.Id,
+                Name = taskView.Name,
+                UserId = userId
+            };
+            repository.SaveTaskList(taskList);
+            return Ok();
+        }
     }
 }

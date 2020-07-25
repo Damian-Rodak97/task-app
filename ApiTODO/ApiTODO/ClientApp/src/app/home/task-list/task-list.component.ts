@@ -1,8 +1,8 @@
 import { TaskListService } from './../../shared/task-list.service';
-import { TaskList } from './../TaskList.class';
 import { TaskService } from './../../shared/task.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../Task.class';
+import { TaskList } from '../tasklist.class';
 
 @Component({
   selector: 'app-task-list',
@@ -13,12 +13,15 @@ export class TaskListComponent implements OnInit {
   @Input() list: TaskList;
   public tasks: Array<Task> = [];
   isHidden;
+  isListHidden;
   task: Task;
+  newListTask: TaskList;
 
   constructor(public taskservice: TaskService, public listService: TaskListService) { }
 
   ngOnInit(): void {
     this.task = new Task();
+    this.newListTask = new TaskList();
     this.taskservice.getTasksForList(this.list.id).subscribe((res: any) => {
       this.tasks = res;
     },
@@ -34,7 +37,9 @@ export class TaskListComponent implements OnInit {
   back(): void {
     this.isHidden = false;
   }
-
+  onBack(): void{
+    this.isListHidden = false;
+  }
   deleteList(taskList: TaskList): void {
     this.listService.deleteTaskList(taskList).subscribe((res: any) => {
       window.location.reload();
@@ -50,5 +55,15 @@ export class TaskListComponent implements OnInit {
       }
     );
   }
-
+  onEdit(): void{
+this.isListHidden = true;
+  }
+  editTaskList(listId, name): void
+  {
+    this.newListTask.id = listId;
+    this.newListTask.name = name;
+    this.listService.editTaskList(this.newListTask).subscribe((res: any) => {
+      window.location.reload();
+    });
+  }
 }
