@@ -1,23 +1,34 @@
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand text-white">JWT Auth System</a>
-  <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+  <div class="d-flex justify-content-end">
+    <button class="text-white" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu class="bg-dark text-white" #menu="matMenu">
+      <button mat-menu-item class="text-success" (click)="onTaskList()">Add new List</button>
+      <button mat-menu-item class="text-danger" (click)="onLogout()">Logout</button>
+    </mat-menu>
+  </div>
 </nav>
-<div class="row d-flex justify-content-around">
-<div *ngFor="let list of taskList" >
-  <app-task-list [list]="list"></app-task-list>
-</div></div>
-<div class="d-flex justify-content-center mt-2">
-  <button mat-raised-button *ngIf="!isHidden" (click)="onTaskList()">Add new List</button>
+<div class="d-flex justify-content-center">
+  <form class="d-flex justify-content-center text-white mt-1 pt-2 col-2 bg-dark rounded" *ngIf="isHidden">
+    <mat-form-field class="example-full-width">
+      <mat-label class="text-white">Name list</mat-label>
+      <input matInput type="text" #name>
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="addTaskList(name.value)">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </form>
 </div>
-<form class="d-flex justify-content-center text-white" *ngIf="isHidden">
-  <mat-form-field appearance="fill" class="example-full-width">
-  <mat-label class="text-white">Name list</mat-label>
-  <input matInput type="text" #name>
-  </mat-form-field>
-<button mat-icon-button color="primary" (click)="addTaskList(name.value)"><mat-icon>add</mat-icon></button>
-<button mat-icon-button color="warn" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
-
-</form>
+<div class="row d-flex justify-content-around">
+  <div *ngFor="let list of taskList">
+    <app-task-list [list]="list"></app-task-list>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-10 offset-md-1">
     <router-outlet></router-outlet>

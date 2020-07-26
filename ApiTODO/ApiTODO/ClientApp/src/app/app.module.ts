@@ -20,6 +20,7 @@ import { TaskComponent } from './home/task/task.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MatInputModule} from '@angular/material/input';
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    MatMenuModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
