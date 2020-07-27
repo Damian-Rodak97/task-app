@@ -38,11 +38,11 @@ namespace ApiTODO.Controllers
                 return Ok();
         }
 
-        [HttpPost]
-        [Route("DeleteTask")]
-        public IActionResult DeleteTask(Task taskViewModel)
+        [HttpDelete]
+        [Route("DeleteTask/{taskId}")]
+        public IActionResult DeleteTask([FromRoute]int taskId)
         {
-            var task = repository.Tasks.FirstOrDefault(x => x.Id == taskViewModel.Id);
+            var task = repository.Tasks.FirstOrDefault(x => x.Id == taskId);
             repository.DeleteTask(task);
             return Ok();
         }
@@ -58,7 +58,7 @@ namespace ApiTODO.Controllers
             return Ok(tasks);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("EditTask")]
         public IActionResult EditTask(Task taskView)
         {

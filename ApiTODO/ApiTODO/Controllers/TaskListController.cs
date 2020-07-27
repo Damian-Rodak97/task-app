@@ -44,16 +44,16 @@ namespace ApiTODO.Controllers
             return Ok(listTask);
         }
 
-        [HttpPost]
-        [Route("DeleteTaskList")]
-        public IActionResult DeleteTaskList(TaskList taskListViewModel)
+        [HttpDelete]
+        [Route("DeleteTaskList/{taskListId}")]
+        public IActionResult DeleteTaskList([FromRoute]int taskListId)
         {
-            var taskList = repository.TaskLists.FirstOrDefault(x => x.Id == taskListViewModel.Id);
+            var taskList = repository.TaskLists.FirstOrDefault(x => x.Id == taskListId);
             repository.DeleteTaskList(taskList);
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("EditTaskList")]
         public IActionResult EditTaskList(TaskList taskView)
         {

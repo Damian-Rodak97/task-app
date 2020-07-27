@@ -28,11 +28,11 @@ export class TaskService {
   }
 
   // tslint:disable-next-line:typedef
-  deleteTask(task: Task) {
-    return this.http.post(this.BaseURI + '/Task/DeleteTask', task);
+  deleteTask(taskId: number) {
+    return this.http.delete(`${this.BaseURI}/Task/DeleteTask/${taskId}`);
   }
   // tslint:disable-next-line:typedef
   editTask(task: Task){
-    return this.http.post(this.BaseURI + '/Task/EditTask', task);
+    return this.http.put(this.BaseURI + '/Task/EditTask', task);
   }
 }

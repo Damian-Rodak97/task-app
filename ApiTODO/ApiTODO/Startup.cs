@@ -79,7 +79,7 @@ namespace ApiTODO
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiTodo");
             });
 
-            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString()).AllowAnyHeader().AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString()).AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
 

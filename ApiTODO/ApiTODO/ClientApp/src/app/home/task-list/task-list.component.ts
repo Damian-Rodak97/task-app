@@ -40,8 +40,8 @@ export class TaskListComponent implements OnInit {
   onBack(): void{
     this.isListHidden = false;
   }
-  deleteList(taskList: TaskList): void {
-    this.listService.deleteTaskList(taskList).subscribe((res: any) => {
+  deleteList(taskListId: number): void {
+    this.listService.deleteTaskList(taskListId).subscribe((res: any) => {
       window.location.reload();
     });
   }

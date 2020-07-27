@@ -20,11 +20,11 @@ export class TaskListService {
     return this.http.get(this.BaseURI + '/TaskList/TaskList');
   }
   // tslint:disable-next-line:typedef
-  deleteTaskList(taskList: TaskList) {
-    return this.http.post(this.BaseURI + '/TaskList/DeleteTaskList', taskList);
+  deleteTaskList(taskListId: number) {
+    return this.http.delete(`${this.BaseURI}/TaskList/DeleteTaskList/${taskListId}`);
   }
    // tslint:disable-next-line:typedef
   editTaskList(taskList: TaskList) {
-    return this.http.post(this.BaseURI + '/TaskList/EditTaskList', taskList);
+    return this.http.put(this.BaseURI + '/TaskList/EditTaskList', taskList);
   }
 }

@@ -18,8 +18,8 @@ export class TaskComponent implements OnInit {
     this.newTask = new Task();
   }
 
-  done(task): void {
-    this.taskService.deleteTask(task).subscribe((res: any) => {
+  done(taskId: number): void {
+    this.taskService.deleteTask(taskId).subscribe((res: any) => {
       window.location.reload();
     });
   }
